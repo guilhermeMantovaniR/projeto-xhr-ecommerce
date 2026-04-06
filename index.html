@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Implementação XHR - E-commerce Brasil</title>
+</head>
+<body>
+    <h1>Teste de Requisição Assíncrona (XHR)</h1>
+    <button id="btnCarregar">Carregar Produtos</button>
+    <div id="resultado"></div>
+
+    <script>
+        document.getElementById('btnCarregar').addEventListener('click', function() {
+            // 1. Instanciando o objeto (Início do Ciclo)
+            const xhr = new XMLHttpRequest();
+
+            // 2. Configurando a requisição para uma API fake de teste
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1', true);
+
+            // 3. Monitorando o progresso (onreadystatechange)
+            xhr.onreadystatechange = function() {
+                // readyState 4 = Concluído | status 200 = Sucesso
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const dados = JSON.parse(xhr.responseText);
+                    document.getElementById('resultado').innerHTML = 
+                        '<h3>Resposta da API:</h3><p>' + dados.title + '</p>';
+                    console.log("Sucesso no processamento assíncrono!");
+                }
+            };
+
+            // 4. Enviando a requisição
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
